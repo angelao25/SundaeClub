@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   # root "articles#index"
   #
   namespace :control_panel, path: "controlpanel" do
-    resources :channels, only: %i[show]
+    resources :channels, only: :show do
+      resource :suspension, only: :create, module: :channels
+    end
   end
 
   resources :channels, only: %i[show edit update]

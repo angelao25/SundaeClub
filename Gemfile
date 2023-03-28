@@ -88,3 +88,5 @@ end
 group :development, :test do
   gem "factory_bot_rails"
 end
+
+gem "pundit", "~> 2.3"

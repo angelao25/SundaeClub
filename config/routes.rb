@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :channels, only: %i[show edit update]
+
+  root "static#home_page"
 end

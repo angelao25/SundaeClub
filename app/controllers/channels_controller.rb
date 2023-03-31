@@ -8,11 +8,7 @@ class ChannelsController < ApplicationController
   end
 
   def update
-    if user.is_admin? && params[:suspended] == true
-      @channel.suspended_at = Time.zone.now
-    end
-    @channel.update_attributes(channel_params)
-    if @channel.save
+    if @channel.update!(channel_params)
       flash["notice"] = "#{@channel.name} has been updated successfully."
       redirect_to channel_path(@channel)
     else
@@ -31,7 +27,7 @@ class ChannelsController < ApplicationController
 
   private
 
-  def channel_param
+  def channel_params
     params.require(:channel).permit(:name, :description)
   end
 

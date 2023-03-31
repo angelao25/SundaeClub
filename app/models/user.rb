@@ -8,4 +8,8 @@ class User < ApplicationRecord
          :validatable,
          :confirmable,
          :trackable
+
+  belongs_to :organisation
+
+  validates :organisation, presence: true
 end

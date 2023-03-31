@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_30_142141) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_31_024928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +20,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_142141) do
     t.text "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "organisation_id"
     t.datetime "suspended_at"
+    t.bigint "site_id", null: false
+    t.index ["site_id"], name: "index_channels_on_site_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -59,16 +60,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_142141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "organisation_id", null: false
-    t.index ["confirmation_token"],
-            name: "index_users_on_confirmation_token",
-            unique: true
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organisation_id"], name: "index_users_on_organisation_id"
-    t.index ["reset_password_token"],
-            name: "index_users_on_reset_password_token",
-            unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "channels", "sites"
   add_foreign_key "sites", "organisations"
   add_foreign_key "users", "organisations"
 end

@@ -1,5 +1,5 @@
 class ControlPanel::ChannelPolicy < ApplicationPolicy
   def show?
-    user.email == "user2@example.com"
+    user.organisation == record.organisation
   end
 end
